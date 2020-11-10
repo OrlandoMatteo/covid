@@ -32,7 +32,7 @@ function firstPlot(data) {
 
   var layout = {
     title: "Nuovi positivi",
-    font: { size: 18 },
+    font: { family: 'Capriola',size: 18 },
   };
   var config = { responsive: true };
 
@@ -50,7 +50,7 @@ function firstPlot(data) {
 
   var layout = {
     title: "Deceduti",
-    font: { size: 18 },
+    font: { family: 'Capriola',size: 18 },
   };
   Plotly.newPlot(
     deceduti_div,
@@ -66,7 +66,7 @@ function firstPlot(data) {
 
   var layout = {
     title: "Terapia Intensiva",
-    font: { size: 18 },
+    font: { family: 'Capriola',size: 18 },
   };
   Plotly.newPlot(
     terapia_div,
@@ -82,7 +82,8 @@ function firstPlot(data) {
 
   var layout = {
     title: "Positivi vs .tamponi",
-    font: { size: 18 },
+    
+    font: { family: 'Capriola',size: 18 },
   };
   Plotly.newPlot(
     pos_tamp_div,
@@ -95,4 +96,12 @@ function firstPlot(data) {
     layout,
     config
   );
+}
+function plotChoropleth(response) {
+  locations = [];
+  z = [];
+  for (i = 0; i < response.features.length; i++) {
+    locations.push(response.features[i].geometry);
+    z.push(response.features[i].properties.covid);
+  }
 }
