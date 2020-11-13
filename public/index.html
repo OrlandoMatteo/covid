@@ -1,77 +1,111 @@
 <html>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
-        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet"> 
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+              integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+                crossorigin="anonymous"></script>
+        <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Capriola&display=swap" rel="stylesheet">
 
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
-    <script src="https://kit.fontawesome.com/5361cbd454.js" crossorigin="anonymous"></script>
-    <script src="js/script.js"></script>
+        <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+        <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
+        <script src="https://kit.fontawesome.com/5361cbd454.js" crossorigin="anonymous"></script>
+        <script src="js/script.js"></script>
+        <style>
+         body {
+             font-family: 'Capriola', sans-serif;
+         }
+        </style>
+    </head>
     <style>
-        body {
-            font-family: 'Capriola', sans-serif;
-        }
+     .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
+         font-family: 'Capriola', sans-serif;
+     }
+     #map{
+         font-family: 'Capriola', sans-serif;
+     }
     </style>
-</head>
-<style>
-    .js-plotly-plot .plotly, .js-plotly-plot .plotly div {
-        font-family: 'Capriola', sans-serif;
-    }
-    #map{
-        font-family: 'Capriola', sans-serif;
-    }
-</style>
 
-</head>
+    </head>
 
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12" style="text-align:center">
-                <h2><b>COVID 19 - Dashboard</b></h2>
+    <body>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12" style="text-align:center">
+                    <h2><b>COVID 19 - Dashboard</b></h2>
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-xs-12" id="nuovi_positivi" style=""></div>
-            <div class="col-xl-6 col-xs-12" id="deceduti" style=""></div>
-        </div>
-        <div class="row">
-            <div class="col-xl-6 col-xs-12" id="terapia_intensiva" style=""></div>
-            <div class="col-xl-6 col-xs-12" id="positivi_tamponi" style=""></div>
-        </div>
-        <div class="row">
-            <div class="col-xl-12 col-xs-12 map" id="positivi_tamponi" style="">
-                <div id='map' style='height: 100vh;'></div>
+            <div class="row">
+                <div class="col-xl-3 col-xs-12" style="">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-virus"></i> Positivi giornalieri</h5>
+                            <p class="card-text" id="num_nuovi_positivi" ></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-xs-12" style="">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-heart-broken"></i> Deceduti giornalieri</h5>
+                            <p class="card-text" id="nuovi_deceduti" ></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-xs-12" style="">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-hospital"></i> Ricoverati giornalieri</h5>
+                            <p class="card-text" id="nuovi_terapia_intensiva" ></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-3 col-xs-12" style="">
+                    <div class="card border-dark mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fas fa-percentage"></i> Rapporto positivi/tamponi</h5>
+                            <p class="card-text" id="rapporto_positivi_tamponi" ></p>
+                        </div>
+                    </div>
+                </div>
             </div>
+            <div class="row">
+                <div class="col-xl-6 col-xs-12" id="nuovi_positivi" style=""></div>
+                <div class="col-xl-6 col-xs-12" id="deceduti" style=""></div>
+            </div>
+            <div class="row">
+                <div class="col-xl-6 col-xs-12" id="terapia_intensiva" style=""></div>
+                <div class="col-xl-6 col-xs-12" id="positivi_tamponi" style=""></div>
+            </div>
+            <div class="row">
+                <div class="col-xl-12 col-xs-12 map" id="positivi_tamponi" style="">
+                    <div id='map' style='height: 100vh;'></div>
+                </div>
+            </div>
+
         </div>
+        </div>
+        <script>window.onload = getData()</script>
 
-    </div>
-    </div>
-    <script>window.onload = getData()</script>
-
-    <script>
-        mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw';
-        var map = new mapboxgl.Map({
-            container: 'map',
-            style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
-            center: [13.33890707345131, 41.6459553956108], // starting position [lng, lat]
-            zoom: 5.43 ,// starting zoom
-            localIdeographFontFamily:"'Capriola', sans-serif"
-        })
-    </script>
-    <script src="js/provinceGeojson.js"></script>
-    <script src="js/map.js"></script>
-</body>
+        <script>
+         mapboxgl.accessToken = 'pk.eyJ1IjoibWF0dGVvLW9ybGFuZG8iLCJhIjoiY2puYndpaWxtMDhpZjN3cGU0cjYxNjl2MyJ9.seN7FeS88tx9yYwqMk5QIw';
+         var map = new mapboxgl.Map({
+             container: 'map',
+             style: 'mapbox://styles/mapbox/streets-v11', // stylesheet location
+             center: [13.33890707345131, 41.6459553956108], // starting position [lng, lat]
+             zoom: 5.43 ,// starting zoom
+             localIdeographFontFamily:"'Capriola', sans-serif"
+         })
+        </script>
+        <script src="js/provinceGeojson.js"></script>
+        <script src="js/map.js"></script>
+    </body>
 
 </html>

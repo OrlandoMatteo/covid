@@ -30,9 +30,18 @@ function firstPlot(data) {
     positivi_tamponi.push((data[i].nuovi_positivi * 100) / tamp_giorn);
   }
 
+  $("#num_nuovi_positivi").html(positivi[positivi.length - 1].toString());
+  $("#nuovi_deceduti").html(deceduti[deceduti.length - 1].toString());
+  $("#nuovi_terapia_intensiva").html(
+    terapia_intensiva[terapia_intensiva.length - 1].toString()
+  );
+  $("#rapporto_positivi_tamponi").html(
+    positivi_tamponi[positivi_tamponi.length - 1].toFixed(2)
+  );
+
   var layout = {
     title: "Nuovi positivi",
-    font: { family: 'Capriola',size: 18 },
+    font: { family: "Capriola", size: 18 },
   };
   var config = { responsive: true };
 
@@ -50,7 +59,7 @@ function firstPlot(data) {
 
   var layout = {
     title: "Deceduti",
-    font: { family: 'Capriola',size: 18 },
+    font: { family: "Capriola", size: 18 },
   };
   Plotly.newPlot(
     deceduti_div,
@@ -66,7 +75,7 @@ function firstPlot(data) {
 
   var layout = {
     title: "Terapia Intensiva",
-    font: { family: 'Capriola',size: 18 },
+    font: { family: "Capriola", size: 18 },
   };
   Plotly.newPlot(
     terapia_div,
@@ -82,8 +91,8 @@ function firstPlot(data) {
 
   var layout = {
     title: "Positivi vs .tamponi",
-    
-    font: { family: 'Capriola',size: 18 },
+
+    font: { family: "Capriola", size: 18 },
   };
   Plotly.newPlot(
     pos_tamp_div,
