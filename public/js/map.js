@@ -1,13 +1,13 @@
 map.on("load", function () {
   map.resize();
-  geteChoropleth();
+  getChoropleth();
 });
 
-function geteChoropleth() {
+function getChoropleth() {
   $.ajax({
     type: "GET",
     url:
-      "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json",
+      "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json",
     datatype: "json",
     success: function (response) {
       plotChoropleth(JSON.parse(response));
@@ -15,21 +15,21 @@ function geteChoropleth() {
   });
 }
 function plotChoropleth(data) {
-  for (var i = 0; i < geojson.features.length; i++) {
+  for (var i = 0; i < regioni.features.length; i++) {
     for (var j = 0; j < data.length; j++) {
       if (
-        data[j].codice_provincia ==
-        geojson.features[i].properties.prov_istat_code_num
+        data[j].denominazione_regione ==
+        regioni.features[i].properties.Regione
       ) {
-        geojson.features[i].properties.covid = data[j].totale_casi;
-        geojson.features[i].properties.data = data[j];
+        regioni.features[i].properties.covid = data[j].totale_positivi;
+        regioni.features[i].properties.data = data[j];
       }
     }
   }
 
   map.addSource("province", {
     type: "geojson",
-    data: geojson,
+    data: regioni,
   });
 
   map.addLayer({
@@ -42,13 +42,13 @@ function plotChoropleth(data) {
         ["linear"],
         ["get", "covid"],
         100,
-        "#FFFB33",
+        "#FFF",
         1000,
         "#FFFB33 ",
         10000,
-        "#FF4633 ",
+        "#ee7f01 ",
         100000,
-        "#850E0E ",
+        "#e2001a ",
       ],
       "fill-opacity": 0.5,
     },
@@ -63,13 +63,13 @@ function plotChoropleth(data) {
         ["linear"],
         ["get", "covid"],
         100,
-        "#FFFB33",
+        "#FFF",
         1000,
         "#FFFB33 ",
         10000,
-        "#FF4633 ",
+        "#ee7f01 ",
         100000,
-        "#850E0E ",
+        "#e2001a ",
       ],
       "line-width": 3,
       "line-offset":2
@@ -86,8 +86,8 @@ function plotChoropleth(data) {
 
     var coordinates = e.lngLat;
     dataJson=JSON.parse(e.features[0].properties.data)
-    var content = '<h4><i class="fas fa-map-marked-alt"></i>'+dataJson.denominazione_provincia+'</h4>'+
-                    '<p><i class="fas fa-virus"></i>totale casi: '+dataJson.totale_casi+'</p>'+
+    var content = '<h4><i class="fas fa-map-marked-alt"></i>'+dataJson.denominazione_regione+'</h4>'+
+                    '<p><i class="fas fa-virus"></i>totale casi: '+dataJson.totale_positivi+'</p>'+
                     '<p><i class="far fa-calendar-alt"></i> aggiornato al  '+dataJson.data+'</p>';
     var description = e.features[0].properties.covid;
 
